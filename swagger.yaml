@@ -1471,7 +1471,7 @@ paths:
                     name: category 2
                     order: 2
                     
-    put:
+    post:
       summary: create categories
       tags:
         - Categories
@@ -1505,7 +1505,7 @@ paths:
                   status_code: 200
                   message: Ok
 
-    post:
+    put:
       summary: update categories
       tags:
         - Categories
@@ -1852,7 +1852,7 @@ paths:
                   message: Ok
                   
     get:
-      summary: update item
+      summary: get item
       tags:
         - items
       security:
@@ -1998,6 +1998,70 @@ paths:
                     type: array
                     items:
                       example:
+  /restaurant/meu/items/get_all:
+    get:
+      summary: get all items for dashboard
+      tags:
+        - Dashboard
+      security:
+        - oauth_token:  []
+      responses:
+        '200':    # status code
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  item_id:
+                    type: number
+                    example: 101
+                  cat_id:
+                    type: number
+                    example: 1
+                  name:
+                    type: string
+                    example: item 1
+                  description:
+                    type: string
+                    example: ""
+                  g_availability:
+                    type: number
+                    example: 1
+                  img_url:
+                    type: string
+                    example: null
+                  position:
+                    type: number
+                    example: 0
+                  serving:
+                    type: string
+                    example: mini
+                  serving_ids:
+                    type: number
+                    example: 11
+                  prices_availability:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        otype_id:
+                          type: number
+                          example: 1
+                        otype_name:
+                          type: string
+                          example: Dine-in
+                        availability:
+                          type: boolean
+                          example: true
+                        price:
+                          type: array
+                          items:
+                            example: 1.0
+                        packaging_charges:
+                          type: array
+                          items:
+                            example: 0.0
                       
     delete:
         summary: delete items
@@ -5718,3 +5782,438 @@ paths:
                       message:
                         type: string
                         example: Ok
+
+  /login:
+    post:
+        summary: Merchant Login
+        tags:
+          - Authentication
+        security:
+          - oauth_token:  []
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                      type: string
+                      example: useremail@example.com
+                  password:
+                    type: string
+                    example: Password@1234
+                  session_token:
+                    type: string
+                    example: ah3079596535qn
+                      
+        responses:
+          '200':    # status code
+            description: ""
+            content:
+              application/json:
+                schema:
+                    type: object
+                    properties:
+                      oauth_token:
+                        type: string
+                        example: Pc659d28fbDn348elqzvJtTFWKKqvUjM
+                      refresh_token:
+                        type: string
+                        example: oecAiMfy659d28fbAxASOzfO348hR0ac1f1755VOqIukFcwTQuyKDIIEDcqtktGTkjunpCXjJCHckUpXrrHCKAyVGufsZOnPsvyMKcjDKoWGtnAbMcFcfzjqjVqPUjcw
+                      employee_id:
+                        type: number
+                        example: 101
+                      name:
+                        type: string
+                        example: Milan
+                      email:
+                        type: string
+                        example: useremail@example.com
+                      resturants:
+                        type: array
+                        items:
+                          example: [
+                            {
+                              rest_id: 452,
+                              name: resturant name,
+                              permission: {
+                                56: 1,
+                                57: 1,
+                                58: 1,
+                                59: 1,
+                                60: 1,
+                                61: 1,
+                                62: 1,
+                                63: 1,
+                                64: 1,
+                                65: 1,
+                                66: 1,
+                                67: 1,
+                                69: 1,
+                                70: 1,
+                                71: 1,
+                                72: 1,
+                                73: 1,
+                                74: 1,
+                                75: 1,
+                                76: 1,
+                                77: 1,
+                                78: 1,
+                                79: 1,
+                                80: 1,
+                                81: 1,
+                                82: 1,
+                              },
+                              role_name: super Admin,
+                              role_id: 1043,
+                              tz: Asia/Kolkata,
+                              status: 1,
+                              is_super_admin: 1,
+                              landmark: Hyderabad
+                            }
+                            ]
+                      policy_accept_status:
+                        type: number
+                        example: 1
+                      password_expired:
+                        type: boolean
+                        example: true
+                      mfa_session_token:
+                        type: boolean
+                        example: true
+                      auto_save_interval:
+                        type: number
+                        example: 10
+                      session_size:
+                        type: number
+                        example: 30
+  
+  /resetemail:
+    post:
+          summary: Forgot password
+          tags:
+            - Authentication
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    email:
+                        type: string
+                        example: useremail@example.com
+                        
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+                          
+  /reset:
+    put:
+          summary: Password reset
+          tags:
+            - Authentication
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    password:
+                        type: string
+                        example: Password@1234
+                    token:
+                      type: string
+                      example: SC2053943048WL
+                        
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+                          
+  /branch/reports/total_sales:
+    get:
+          summary: Get total sales
+          tags:
+            - List of restuarants
+          security:
+            - oauth_token:  []
+          parameters:
+            - in: query
+              name: start_date
+              schema:
+                type: number
+                example: 1704825000
+              required: true
+            - in: query
+              name: end_date
+              schema:
+                type: number
+                example: 1704825000
+              required: true
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        rest_id:
+                          type: number
+                          example: 452
+                        total_sales:
+                          type: number
+                          example: 156
+  /restaurant/reports/custom:
+    put:
+          summary: Custom sales
+          tags:
+            - Dashboard
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    cat_id:
+                        type: array
+                        items:
+                          example: [1, 2]
+                    category_grouping:
+                      type: array
+                      items:
+                        example: [{
+                          cat_id_list: [724, 725],
+                          category_grouping: [{
+                            group_name: Test,
+                            list: [{
+                              cat_id: 826,
+                              final_price: 0,
+                              name: "test",
+                              quantity: 1,
+                              total_discount: 0,
+                              total_tax: 0,
+                              total_price: 0
+                            }]
+                          }],
+                        }
+                          ]
+                    item_id_list: 
+                      example: [121,122]
+                        
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+    get:
+          summary: Custom categories
+          tags:
+            - Reports
+          security:
+            - oauth_token:  []
+          parameters:
+            - in: query
+              name: start_date
+              schema:
+                type: number
+                example: 1704825000
+              required: true
+            - in: query
+              name: end_date
+              schema:
+                type: number
+                example: 1704825000
+              required: true
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        cat_id:
+                          type: array
+                          items:
+                            example: [1, 2]
+                        category_grouping:
+                          type: array
+                          items:
+                            example: [{
+                              cat_id_list: [724, 725],
+                              category_grouping: [{
+                                group_name: Test,
+                                list: [{
+                                  cat_id: 826,
+                                  final_price: 0,
+                                  name: "test",
+                                  quantity: 1,
+                                  total_discount: 0,
+                                  total_tax: 0,
+                                  total_price: 0
+                                }]
+                              }],
+                            }
+                              ]
+                        item_id_list: 
+                          example: [121,122]
+                        data:
+                          example: {
+                            category_info: {
+                              cat_id: 826,
+                              final_price: 0,
+                              name: "test",
+                              quantity: 1,
+                              total_discount: 0,
+                              total_tax: 0,
+                              total_price: 0
+                            },
+                            item_info: {
+                              item_id: 826,
+                              final_price: 0,
+                              name: "test",
+                              quantity: 1,
+                              total_discount: 0,
+                              total_tax: 0,
+                              total_price: 0
+                            }
+                          }
+                    
+  /restuarant/pettycash/reports:
+    get:
+          summary: get Petty cash details
+          tags:
+            - Reports
+          security:
+            - oauth_token:  []
+          parameters:
+            - in: query
+              name: start_date
+              schema:
+                type: number
+                example: 1704825000
+              required: true
+            - in: query
+              name: end_date
+              schema:
+                type: number
+                example: 1704825000
+              required: true
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        closing_balance:
+                          example: 0
+                        credit_amount:
+                          example: 181
+                        debit_amount:
+                          example: 11
+                        opening_balance:
+                          example: 100
+                        total_txns:
+                          example: [
+                            {
+                              amount: 0,
+                              cat_id: 138,
+                              cat_name: 'rice',
+                              debited: 0,
+                              txn_id: 329
+                            }]
+
+  /restuarant/reports/item/alochol:
+    get:
+          summary: get alochol sales
+          tags:
+            - Reports
+          security:
+            - oauth_token:  []
+          parameters:
+            - in: query
+              name: start_date
+              schema:
+                type: number
+                example: 1704825000
+              required: true
+            - in: query
+              name: end_date
+              schema:
+                type: number
+                example: 1704825000
+              required: true
+            - in: query
+              name: order_types
+              schema:
+                type: string
+                example: takeout
+              required: true
+            - in: query
+              name: employee_id
+              schema:
+                type: number
+                example: 14
+              required: true
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        total_count:
+                          example: 1
+                        sales:
+                          example: [
+                            {
+                              price: 11,
+                              date: "2023-03-09",
+                              order_type: 'takeout',
+                              otype_id: 2871,
+                              txn_id: 329
+                            }]

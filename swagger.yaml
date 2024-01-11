@@ -1636,7 +1636,394 @@ paths:
                     position: 0
                     img_url: ""
                     item_type: combo
-                    
+  /restaurant/menu/alochol:
+    post:
+      summary: create Alochol
+      tags:
+        - Alcohol
+      security:
+        - oauth_token:  []
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: item 1
+                  cat_id:
+                    type: number
+                    example: 1
+                  description:
+                    type: string
+                    example: add description
+                  g_availability:
+                    type: boolean
+                    example: true
+                  image_url:
+                    type: string
+                    example: null
+                  is_out_of_stock:
+                    type: number
+                    example: 0
+                  item_type:
+                    type: string
+                    example: Alcohol
+                  pricing_type:
+                    type: string
+                    example: Variable
+                  tax_mode:
+                    type: string
+                    example: standard
+                  addons:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        allow_multi_quantity:
+                          type: string
+                          example: 1
+                        allow_multi_select:
+                          type: string
+                          example: 1
+                        is_mandatory:
+                          type: boolean
+                          example: true
+                        maximum_quantity:
+                          type: number
+                          example: 2
+                        maximum_select:
+                          type: number
+                          example: 2
+                        minimum_quantity:
+                          type: number
+                          example: 1
+                        minimum_select:
+                          type: number
+                          example: 1
+                  prices_availability:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        availability:
+                          type: boolean
+                          example: true
+                        otype_id:
+                          type: string
+                          example: 9
+                        packaging_charges:
+                          type: array
+                          items:
+                            type: number
+                            example: 0
+                        price:
+                          type: array
+                          items:
+                            type: number
+                            example: 1
+      responses:
+        '200':    # status code
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    status_code:
+                      type: number
+                    message:
+                      type: string
+                example:
+                  status_code: 200
+                  message: Ok
+    get:
+      summary: get Alcohol item
+      tags:
+        - Alcohol
+      security:
+        - oauth_token:  []
+      parameters:
+        - in: query
+          name: item_id
+          schema:
+            type: number
+            example: 101
+          required: true
+          description: ""
+      responses:
+        '200':    # status code
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  item_id:
+                    type: number
+                    example: 101
+                  cat_id:
+                    type: number
+                    example: 1
+                  name:
+                    type: string
+                    example: item 1
+                  description:
+                    type: string
+                    example: ""
+                  g_availability:
+                    type: number
+                    example: 1
+                  is_out_of_stock:
+                    type: number
+                    example: 0
+                  img_url:
+                    type: string
+                    example: null
+                  pricing_type:
+                    type: number
+                    example: 0
+                  position:
+                    type: number
+                    example: 0
+                  base_price:
+                    type: number
+                    example: 1.0
+                  item_type:
+                    type: string
+                    example: Alcohol
+                  tax_mode:
+                    type: string
+                    example: Standard
+                  serving:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        serving_id:
+                          type: number
+                          example: 1
+                        name:
+                          type: string
+                          example: base
+                  prices_availability:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        otype_id:
+                          type: number
+                          example: 1
+                        otype_name:
+                          type: string
+                          example: Dine-in
+                        availability:
+                          type: boolean
+                          example: true
+                        price:
+                          type: array
+                          items:
+                            example: 1.0
+                        packaging_charges:
+                          type: array
+                          items:
+                            example: 0.0
+                  addons:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        serving_id:
+                          type: string
+                          example: 1
+                        addons:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              addon_cat_id:
+                                type: number
+                                example: 1
+                              allow_multi_select:
+                                type: boolean
+                                example: true
+                              minimum_select:
+                                type: number
+                                example: 1
+                              maximum_select:
+                                type: number
+                                example: 2
+                              allow_multi_quantity:
+                                type: boolean
+                                example: true
+                              maximum_quantity:
+                                type: number
+                                example: 2
+                              minimum_quantity:
+                                type: number
+                                example: 1
+                              addon_items:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    addon_id:
+                                      type: number
+                                      example: 1
+                                    addon_item_name:
+                                      type: string
+                                      example: coke
+                                    price:
+                                      type: number
+                                      example: 1.0
+                  combo:
+                    type: array
+                    items:
+                      example:
+                  build_your_own:
+                    type: array
+                    items:
+                      example:  
+    put:
+      summary: Edit Alcohol item
+      tags:
+        - Alcohol
+      security:
+        - oauth_token:  []
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: item 1
+                  cat_id:
+                    type: number
+                    example: 1
+                  item_id:
+                    type: number
+                    example: 1
+                  description:
+                    type: string
+                    example: add description
+                  g_availability:
+                    type: boolean
+                    example: true
+                  image_url:
+                    type: string
+                    example: null
+                  is_out_of_stock:
+                    type: number
+                    example: 0
+                  item_type:
+                    type: string
+                    example: Alcohol
+                  pricing_type:
+                    type: string
+                    example: Variable
+                  tax_mode:
+                    type: string
+                    example: standard
+                  addons:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        allow_multi_quantity:
+                          type: string
+                          example: 1
+                        allow_multi_select:
+                          type: string
+                          example: 1
+                        is_mandatory:
+                          type: boolean
+                          example: true
+                        maximum_quantity:
+                          type: number
+                          example: 2
+                        maximum_select:
+                          type: number
+                          example: 2
+                        minimum_quantity:
+                          type: number
+                          example: 1
+                        minimum_select:
+                          type: number
+                          example: 1
+                  prices_availability:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        availability:
+                          type: boolean
+                          example: true
+                        otype_id:
+                          type: string
+                          example: 9
+                        packaging_charges:
+                          type: array
+                          items:
+                            type: number
+                            example: 0
+                        price:
+                          type: array
+                          items:
+                            type: number
+                            example: 1
+      responses:
+        '200':    # status code
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    status_code:
+                      type: number
+                    message:
+                      type: string
+                example:
+                  status_code: 200
+                  message: Ok
+    delete:
+        summary: delete Alcohol item
+        tags:
+          - Alcohol
+        security:
+          - oauth_token:  []
+        parameters:
+          - in: query
+            name: id
+            schema:
+              type: number
+              example: 1
+            required: true
+            description: ""
+
+        responses:
+            '200':
+              description: ""
+              content:
+                application/json:
+                  schema: 
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+                      status_code:
+                        type: number
+                        example: 200                 
   /restaurant/menu/items:
     post:
       summary: create item
@@ -1998,6 +2385,35 @@ paths:
                     type: array
                     items:
                       example:
+    delete:
+        summary: delete items
+        tags:
+          - items
+        security:
+          - oauth_token:  []
+        parameters:
+          - in: query
+            name: id
+            schema:
+              type: number
+              example: 1
+            required: true
+            description: ""
+
+        responses:
+            '200':
+              description: ""
+              content:
+                application/json:
+                  schema: 
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+                      status_code:
+                        type: number
+                        example: 200
   /restaurant/meu/items/get_all:
     get:
       summary: get all items for dashboard
@@ -2063,35 +2479,7 @@ paths:
                           items:
                             example: 0.0
                       
-    delete:
-        summary: delete items
-        tags:
-          - items
-        security:
-          - oauth_token:  []
-        parameters:
-          - in: query
-            name: id
-            schema:
-              type: number
-              example: 1
-            required: true
-            description: ""
 
-        responses:
-            '200':
-              description: ""
-              content:
-                application/json:
-                  schema: 
-                    type: object
-                    properties:
-                      status:
-                        type: string
-                        example: success
-                      status_code:
-                        type: number
-                        example: 200
   /restaurant/menu/pizza:
     post:
       summary: create pizza
@@ -5921,6 +6309,38 @@ paths:
                         message:
                           type: string
                           example: Ok
+  /logout:
+    post:
+          summary: Logout
+          tags:
+            - Authentication
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    oauth_token:
+                        type: string
+                        example: lp659fc249Lm348eEotceeRMEtRjwqfO
+                        
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
                           
   /reset:
     put:
@@ -6217,3 +6637,215 @@ paths:
                               otype_id: 2871,
                               txn_id: 329
                             }]
+
+  /restaurant/menu/items/:
+    delete:
+          summary: Delete all items
+          tags:
+            - Menu
+          security:
+            - oauth_token:  []
+          parameters:
+            - in: query
+              name: offset
+              schema:
+                type: number
+                example: 1, 2, 3
+              required: true
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+  /restaurant/menu/categories/positions:
+    put:
+          summary: Positions
+          tags:
+            - Menu
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    postions:
+                      example: [[892,1], [890, 2], [893, 3]]
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+    get:
+          summary: get all addons
+          tags:
+            - Addon Category And Addons
+          security:
+            - oauth_token:  []
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        data:
+                          type: array
+                          items:
+                            example:
+                              {
+                                addon_cat_id: 1,
+                                addon_cat_name: Drinks,
+                                addon_category_items: [{
+                                  addon_item_id: 803,
+                                  addon_item_name: Thums up,
+                                  base_price: 1
+                                },
+                                {
+                                  addon_item_id: 804,
+                                  addon_item_name: coke,
+                                  base_price: 1
+                                }]
+  
+                              }
+  /restaurant/dietary/attribute:
+    get:
+          summary: get all addons
+          tags:
+            - Dietary attributes
+          security:
+            - oauth_token:  []
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        data:
+                          type: array
+                          items:
+                            example:
+                              {
+                                [{
+                                  dietary_attribute_id: 101,
+                                  name: Thums up
+                                },
+                                {
+                                  dietary_attribute_id: 102,
+                                  name: coke
+                                }]
+                              }
+    put:
+          summary: edit attribute
+          tags:
+            - Dietary attributes
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    dietary_attribute_id:
+                      type: number
+                      example: 9
+                    name:
+                      type: string
+                      example: ketchups
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+    post:
+          summary: edit attribute
+          tags:
+            - Dietary attributes
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: ketchups
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+    delete:
+          summary: delete attribute
+          tags:
+            - Dietary attributes
+          security:
+            - oauth_token:  []
+          parameters:
+            - in: query
+              name: id
+              schema:
+                type: array
+                items:
+                  example: 1, 2, 3
+              required: true
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok

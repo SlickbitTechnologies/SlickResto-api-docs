@@ -6849,3 +6849,673 @@ paths:
                         message:
                           type: string
                           example: Ok
+  /restaurant/kitchen:
+        get:
+          summary: get all Kitchens
+          tags:
+            - Kitchens
+          security:
+            - oauth_token:  []
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        data:
+                          type: array
+                          items:
+                            example:
+                              {
+                                [{
+                                  kitchen_id: 519,
+                                  name: Kitchen 1,
+                                  description: ,
+                                  is_default: 1
+                                },
+                                {
+                                  kitchen_id: 520,
+                                  name: Kitchen 2,
+                                  description: ,
+                                  is_default: 0
+                                }]
+                              }
+        put:
+          summary: edit Kitchen
+          tags:
+            - Kitchens
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    kitchen_id:
+                      type: number
+                      example: 519
+                    name:
+                      type: string
+                      example: Kitchen 1
+                    description:
+                      type: string
+                      example: ''
+                    is_default:
+                      type: string
+                      example: 1
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+        post:
+          summary: create Kitchen
+          tags:
+            - Kitchens
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: Kitchen 1
+                    description:
+                      type: string
+                      example: ''
+                    is_default:
+                      type: boolean
+                      example: true
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+        delete:
+          summary: delete Kitchens
+          tags:
+            - Kitchens
+          security:
+            - oauth_token:  []
+          parameters:
+            - in: query
+              name: id
+              schema:
+                type: array
+                items:
+                  example: 1, 2, 3
+              required: true
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+  /restaurant/kitchen/assign_kitchen:
+        get:
+          summary: get all assign Kitchens
+          tags:
+            - Kitchens
+          security:
+            - oauth_token:  []
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        data:
+                          type: array
+                          items:
+                            example:
+                              {
+                                [{
+                                  kitchen_id: 519,
+                                  kitchen_name: Kitchen 1,
+                                  menu_cat_id: 1,
+                                  menu_cat_name: category 1
+                                },
+                                {
+                                  kitchen_id: 520,
+                                  kitchen_name: Kitchen 2,
+                                  menu_cat_id: 2,
+                                  menu_cat_name: category 2
+                                }]
+                              }
+        post:
+          summary: assign Kitchen
+          tags:
+            - Kitchens
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    data:
+                        example: [{
+                          kitchen_id: 519,
+                          kitchen_name: Kitchen 1,
+                          menu_cat_id: 2,
+                          menu_cat_name: category 1
+                        },
+                        {
+                          kitchen_id: 520,
+                          kitchen_name: Kitchen 2,
+                          menu_cat_id: 3,
+                          menu_cat_name: category 2
+                        }]
+                        
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+  /restaurant/settings/taxes/get_all_profiles:
+        get:
+          summary: get all taxes
+          tags:
+            - Taxes
+          security:
+            - oauth_token:  []
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        data:
+                          type: array
+                          items:
+                            example:
+                              {
+                                [{
+                                  taxp_id: 599,
+                                  name: Tax 1,
+                                  desc: "",
+                                  cat_names: [category 1, category 2]
+                                },
+                                {
+                                  taxp_id: 600,
+                                  name: Tax 2,
+                                  desc: "",
+                                  cat_names: [category 3, category 4]
+                                }]
+                              }
+  /restaurant/settings/taxes:
+        get:
+          summary: get tax data
+          tags:
+            - Taxes
+          security:
+            - oauth_token:  []
+          parameters:
+            - in: query
+              name: taxp_id
+              schema:
+                type: number
+                example: 1
+              required: true
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        data:
+                          type: array
+                          items:
+                            example:
+                              desc: ""
+                              name: Tax name
+                              taxes: [{
+                                context_tax_id: 1,
+                                context_tax_name: vat,
+                                name: GST,
+                                operator: '%',
+                                tax_id: 1149,
+                                value: 10
+                              }]
+                              taxp_id: 794
+        put:
+          summary: Edit tax
+          tags:
+            - Taxes
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    desc:
+                      type: string
+                      example: ""
+                    name:
+                      type: string
+                      example: Tax name
+                    taxes:
+                      example: [{
+                        context_tax_id: 1,
+                        context_tax_index: -1,
+                        name: GST,
+                        operator: "%",
+                        value: 10
+                      }]
+                    taxp_id:
+                      type: number
+                      example: 794
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok 
+        post:
+          summary: Create tax
+          tags:
+            - Taxes
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    desc:
+                      type: string
+                      example: ""
+                    name:
+                      type: string
+                      example: Tax name
+                    taxes:
+                      example: [{
+                        context_tax_id: 1,
+                        context_tax_index: -1,
+                        name: GST,
+                        operator: "%",
+                        value: 10
+                      }]
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+        delete:
+          summary: Delete Taxes
+          tags:
+            - Taxes
+          security:
+            - oauth_token:  []
+          parameters:
+            - in: query
+              name: id
+              schema:
+                type: array
+                items:
+                  example: 1, 2, 3
+              required: true
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+  /restaurant/settings/taxes/assign:
+        get:
+          summary: get Assign Taxes
+          tags:
+            - Taxes
+          security:
+            - oauth_token:  []
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        data:
+                          type: array
+                          items:
+                            example:
+                              associations: [{
+                                cat_id: 1,
+                                otype_id: 1,
+                                taxp_id: 522
+                              },
+                              {
+                                cat_id: 2,
+                                otype_id: 2,
+                                taxp_id: 523
+                              }]
+                              item_categories: [{
+                                cat_id: 1,
+                                kitchen_id: 522,
+                                last_updated_on: 1689167662,
+                                name: startres,
+                                order: 0
+                              },
+                              {
+                                cat_id: 2,
+                                kitchen_id: 523,
+                                last_updated_on: 1689167662,
+                                name: Combo,
+                                order: 1
+                              }]
+                              order_types: [{
+                                delivery_mode_id: 1,
+                                description: "",
+                                name: Takeout,
+                                order_channel_id: 1,
+                                otype_id: 1
+                              },
+                              {
+                                delivery_mode_id: 2,
+                                description: "",
+                                name: Dine in,
+                                order_channel_id: 2,
+                                otype_id: 2
+                              }]
+                              tax_profiles: [{
+                                cat_names: cat_name 1,
+                                desc: '',
+                                name: GST,
+                                taxp_id: 459
+                              },
+                              {
+                                cat_names: cat_name 2,
+                                desc: '',
+                                name: CGST,
+                                taxp_id: 460
+                              }]
+        post:
+          summary: assign tax
+          tags:
+            - Taxes
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    data:
+                      example: [[2871, 423, 1], [2872, 424, 1], [2873, 425, 1]]
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+  /restaurant/delivery/option:
+        get:
+          summary: get all Delivery options
+          tags:
+            - Delivery options
+          security:
+            - oauth_token:  []
+          parameters:
+            - in: query
+              name: taxp_id
+              schema:
+                type: number
+                example: 1
+              required: true
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        data:
+                          type: array
+                          items:
+                            example:
+                               [{
+                                delivery_option_id: 1,
+                                description: '',
+                                name: Delivery option name,
+                              },
+                              {
+                                delivery_option_id: 2,
+                                description: '',
+                                name: Delivery option name 2,
+                              }]
+        post:
+          summary: Create delivery option
+          tags:
+            - Delivery options
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    description:
+                      example: ''
+                    name: 
+                      example: Delivery option name
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok 
+        put:
+          summary: Edit delivery option
+          tags:
+            - Delivery options
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    delivery_option_id:
+                      example: 1
+                    description:
+                      example: ''
+                    name: 
+                      example: Delivery option name
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+        delete:
+          summary: Delete options
+          tags:
+            - Delivery options
+          security:
+            - oauth_token:  []
+          parameters:
+            - in: query
+              name: id
+              schema:
+                type: array
+                items:
+                  example: 1, 2, 3
+              required: true
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+  /restaurant/settings/rememberme:
+        get:
+          summary: Remember Login
+          tags:
+            - Remember Login
+          security:
+            - oauth_token:  []
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        data:
+                          type: array
+                          items:
+                            example:
+                               remember_login: true
+        put:
+          summary: Update Remember login
+          tags:
+            - Remember Login
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    remember_login:
+                      example: false
+                    rest_id:
+                      example: 452
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok

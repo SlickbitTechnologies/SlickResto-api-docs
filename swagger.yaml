@@ -7519,3 +7519,287 @@ paths:
                         message:
                           type: string
                           example: Ok
+  /restaurant/pettycash/session:
+        get:
+          summary: get session details
+          tags:
+            - Petty cash
+          security:
+            - oauth_token:  []
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        data:
+                          type: array
+                          items:
+                            example:
+                               session_status: 1
+                               session_date: 2024-01-18
+        post:
+          summary: create session
+          tags:
+            - Petty cash
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    opening_balance:
+                      example: 100
+                    session_status:
+                      example: 1
+                    start_date:
+                      example: 1-18-2024
+                    start_ts:
+                      example: 17055162000
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+        put:
+          summary: stop session
+          tags:
+            - Petty cash
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    ts:
+                      example: 1705585453
+                    txn_date:
+                      example: 2024-01-18
+                    txns:
+                      example: [{
+                        amount: 10,
+                        cat_id: 138,
+                        notes: "",
+                        tx_type: 0
+                      }]
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+  /restaurant/pettycash/expenses:
+        get:
+          summary: get expenses data
+          tags:
+            - Petty cash
+          security:
+            - oauth_token:  []
+          parameters:
+            - in: query
+              name: datestr
+              schema:
+                type: string
+                example: 2024-01-18
+              required: true
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        data:
+                          type: array
+                          items:
+                            example:
+                               opening_balance: 100
+                               active: 1
+                               expenses: [{
+                                 amount: 10,
+                                 cat_id: 138,
+                                 name: Milan,
+                                 notes: '',
+                                 ts: 1705585453,
+                                 tx_type: 0,
+                                 txn_id: 558,
+                                 u_id: 840
+                               }]
+        post:
+          summary: create expenses
+          tags:
+            - Petty cash
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    session_date:
+                      example: 2024-01-18
+                    session_status:
+                      example: 0
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+  /restaurant/pettycash/categories:
+        get:
+          summary: get categories data
+          tags:
+            - Petty cash
+          security:
+            - oauth_token:  []
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        data:
+                          type: array
+                          items:
+                            example: 
+                            - {
+                             cat_id: 138,
+                             cat_name: cat name 1,
+                             description: ''
+                            }
+                            - {
+                             cat_id: 139,
+                             cat_name: cat name 2,
+                             description: ''
+                            }
+        post:
+          summary: create categories
+          tags:
+            - Petty cash
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    cat_name:
+                      example: cat name 1
+                    description:
+                      example: ''
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+        put:
+          summary: edit categories
+          tags:
+            - Petty cash
+          security:
+            - oauth_token:  []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    cat_name:
+                      example: cat name 1
+                    description:
+                      example: ''
+                    cat_id:
+                      example: 11
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
+        delete:
+          summary: Delete categories
+          tags:
+            - Petty cash
+          security:
+            - oauth_token:  []
+          parameters:
+            - in: query
+              name: id
+              schema:
+                type: array
+                items:
+                  example: 1, 2, 3
+              required: true
+          responses:
+            '200':    # status code
+              description: ""
+              content:
+                application/json:
+                  schema:
+                      type: object
+                      properties:
+                        status:
+                          type: number
+                          example: 200
+                        message:
+                          type: string
+                          example: Ok
